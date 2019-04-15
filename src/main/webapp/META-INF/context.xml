@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <!--Realm className="org.apache.catalina.realm.MemoryRealm"
+           pathname="C:\Projetos\SecurityProject\web\WEB-INF\users.xml"
+           digest="SHA-256"/-->
+         
+    <Realm  className="org.apache.catalina.realm.JDBCRealm"
+    	driverName="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/tomcat"
+        connectionName="root" 
+        connectionPassword=""        
+        userTable="users" userNameCol="login" userCredCol="pwd"
+        userRoleTable="roles" roleNameCol="role"> 
+        <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA-256" />
+        </Realm> 
+        
+</Context>
+

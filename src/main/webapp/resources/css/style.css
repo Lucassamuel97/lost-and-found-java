@@ -1,0 +1,61 @@
+label.error { 
+	color: #f00;
+	font-size: 12px; 
+	text-align: left; 
+	border-left:3px solid #f00; 
+	margin-top: 0.8em;
+	padding: 2px 5px;
+}
+#nome, #autor,#editora, #endereco, #complemento, #cidade, #genero, #estudo, #bairro, #complemeto{
+   text-transform: uppercase;
+}
+.icon-logo{
+	height: 200px;
+	width: 200px;
+}
+.imgcarousel{
+	height: 300px!important;;
+	width: 400px!important;;
+}
+.color_carousel{
+	color: black;
+}
+table{
+	font-size: 13px;
+}
+
+/*+++++++++++++++++++++ Emprestimo*/ 
+.blocoImpressao{
+	width: 300px;
+	border: solid 2px black;
+	padding: 10px;
+}
+.blocoImpressao > header{
+	text-align: left;
+	padding: 2px;
+	border-bottom: solid 1px black;
+}
+.blocoImpressao > header > h1{
+	font-size: 14px;
+	text-align: center;
+	background-color: 
+}
+main > table{
+}
+
+.logo{
+	height: 43px;
+}
+.timbre{
+	height: 150px;
+}
+.botao{
+	background-color: #fff;
+	color: red;
+	border: none;
+}
+.campo{
+	overflow: auto;
+	max-height: 150px; 
+}
+
