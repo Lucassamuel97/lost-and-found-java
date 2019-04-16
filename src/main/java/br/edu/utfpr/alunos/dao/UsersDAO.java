@@ -43,9 +43,9 @@ public class UsersDAO extends SqlBase {
 		try {
 			PreparedStatement statement = (PreparedStatement) conection.prepareStatement("INSERT INTO users(login, pwd, telefone, email) VALUES (?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
 				statement.setString(1, user.getLogin());
-				statement.setString(1, user.getPwd());
-				statement.setString(1, user.getTelefone());
-				statement.setString(1, user.getEmail());
+				statement.setString(2, user.getPwd());
+				statement.setString(3, user.getTelefone());
+				statement.setString(4, user.getEmail());
 		
 				statement.executeUpdate();
 				
