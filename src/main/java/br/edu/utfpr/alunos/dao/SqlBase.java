@@ -7,13 +7,13 @@ import com.mysql.jdbc.Connection;
 public class SqlBase {
 
 	private String user = "root";
-	private String password = "htzzx.pp/";
+	private String password = "";
 	protected Connection conection = null;
 
 	public Connection open() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/geek_game?useSSL=false", user, password);
+			conection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lost_and_found", user, password);
 			if(conection != null)
 				return conection;
 			
