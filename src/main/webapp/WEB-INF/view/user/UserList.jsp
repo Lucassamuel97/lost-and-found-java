@@ -23,9 +23,9 @@
                     <td><c:out value="${user.getTelefone()}" /></td>
                     <td><c:out value="${user.getEmail()}" /></td>
                     <td>
-                    	<a href="edit?id=<c:out value='${user.getId()}' />">Edit</a>
+                    	<a href="usuarios/editar?id=<c:out value='${user.getId()}' />">Editar</a>
                     	&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a href="delete?id=<c:out value='${user.getId()}' />">Delete</a>                    	
+                    	<a href="usuarios/deletar?id=<c:out value='${user.getId()}' />">Delete</a>                    	
                     </td>
                 </tr>
             </c:forEach>

@@ -14,6 +14,13 @@ public class Users {
 		this.id = id;
 	}
 	
+	public Users(String login,String pwd, String telefone, String email) {
+		this.login = login;
+		this.pwd = pwd;
+		this.telefone = telefone;
+		this.email = email;
+	}
+	
 	public Users(int id, String login,String pwd, String telefone, String email) {
 		this.id = id;
 		this.login = login;
