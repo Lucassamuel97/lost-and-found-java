@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.edu.utfpr.alunos.dao.UsersDAO;
 import br.edu.utfpr.alunos.model.Users;
 
-@WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar", "/usuarios/*"})
+@WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar","/usuarios/list","/usuarios/*"})
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDao;
