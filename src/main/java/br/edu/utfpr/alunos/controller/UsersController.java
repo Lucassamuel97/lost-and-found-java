@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import br.edu.utfpr.alunos.dao.UsersDAO;
-import br.edu.utfpr.alunos.model.Users;
+import br.edu.utfpr.alunos.model.User;
 
 @WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar","/usuarios/list","/usuarios/*"})
 public class UsersController extends HttpServlet {
@@ -68,7 +68,7 @@ public class UsersController extends HttpServlet {
 	
 	private void listUsers(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<Users> listUsers = usersDao.findAll();
+		List<User> listUsers = usersDao.findAll();
 		request.setAttribute("listUsers", listUsers);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserList.jsp");
 		dispatcher.forward(request, response);
@@ -86,7 +86,7 @@ public class UsersController extends HttpServlet {
 			String telefone = request.getParameter("telefone");
 			String email = request.getParameter("email");
 			
-			Users user = new Users(login, pwd, telefone, email);
+			User user = new User(login, pwd, telefone, email);
 			usersDao.create(user);
 			
 			response.sendRedirect("listar");
@@ -95,9 +95,9 @@ public class UsersController extends HttpServlet {
 	private void showEditFormUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Users resultuser  = usersDao.find(id);
+		User resultUser  = usersDao.find(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserForm.jsp");
-		request.setAttribute("user", resultuser);
+		request.setAttribute("user", resultUser);
 		dispatcher.forward(request, response);
 	}
 	
@@ -109,7 +109,7 @@ public class UsersController extends HttpServlet {
 		String telefone = request.getParameter("telefone");
 		String email = request.getParameter("email");
 		
-		Users user = new Users(id, login, pwd, telefone, email);
+		User user = new User(id, login, pwd, telefone, email);
 		usersDao.update(user);
 
 		response.sendRedirect("list");
@@ -119,10 +119,9 @@ public class UsersController extends HttpServlet {
 			throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		Users user = new Users(id);
+		User user = new User(id);
 		usersDao.delete(user);
 		response.sendRedirect("list");
-
 	}
 	
 	
