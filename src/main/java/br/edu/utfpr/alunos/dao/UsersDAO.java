@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
-import br.edu.utfpr.alunos.model.Users;
+import br.edu.utfpr.alunos.model.User;
 
 public class UsersDAO extends SqlBase {
 
@@ -34,11 +34,11 @@ public class UsersDAO extends SqlBase {
 		}
 	}
 	
-	public Users create(Users user) {
+	public User create(User user) {
 
 		open();
 		
-		Users UserResult = new Users();
+		User UserResult = new User();
 		
 		try {
 			PreparedStatement statement = (PreparedStatement) conection.prepareStatement("INSERT INTO users(login, pwd, telefone, email) VALUES (?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -63,8 +63,8 @@ public class UsersDAO extends SqlBase {
 		return UserResult;
 	}
 	
-	public List<Users> findAll(){
-		ArrayList<Users> result = new ArrayList<>();
+	public List<User> findAll(){
+		ArrayList<User> result = new ArrayList<>();
 		
 		open();
 		
@@ -73,7 +73,7 @@ public class UsersDAO extends SqlBase {
 			ResultSet resultSet = stm.executeQuery();
 			
 			while (resultSet.next()) {
-				Users user = new Users(resultSet.getInt(1), resultSet.getString(2),resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
+				User user = new User(resultSet.getInt(1), resultSet.getString(2),resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
 				result.add(user);
 			}
 			
@@ -86,7 +86,7 @@ public class UsersDAO extends SqlBase {
 		return result;
 	}
 	
-	public void update(Users user) {
+	public void update(User user) {
 		
 		open();
 		
@@ -108,7 +108,7 @@ public class UsersDAO extends SqlBase {
 		}
 	}
 	
-	public void delete(Users user) {
+	public void delete(User user) {
 		
 		open();
 		
@@ -125,8 +125,8 @@ public class UsersDAO extends SqlBase {
 		}
 	}
 	
-	public Users find(int id){
-		Users userResult = new Users();
+	public User find(int id){
+		User userResult = new User();
 		open();
 		
 		try {

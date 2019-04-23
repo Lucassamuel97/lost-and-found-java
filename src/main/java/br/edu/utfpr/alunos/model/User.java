@@ -1,27 +1,36 @@
 package br.edu.utfpr.alunos.model;
 
-public class Users {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="users")
+public class User {
+	@Id
 	protected int id;
-	protected String login;
-	protected String pwd;
-	protected String telefone;
-	protected String email;
 	
-	public Users() {
+	private String login;
+	private String pwd;
+	private String telefone;
+	private String email;
+	
+	public User() {
 	}
 	
-	public Users(int id) {
+	public User(int id) {
 		this.id = id;
 	}
 	
-	public Users(String login,String pwd, String telefone, String email) {
+	public User(String login,String pwd, String telefone, String email) {
 		this.login = login;
 		this.pwd = pwd;
 		this.telefone = telefone;
 		this.email = email;
 	}
 	
-	public Users(int id, String login,String pwd, String telefone, String email) {
+	public User(int id, String login,String pwd, String telefone, String email) {
 		this.id = id;
 		this.login = login;
 		this.pwd = pwd;
