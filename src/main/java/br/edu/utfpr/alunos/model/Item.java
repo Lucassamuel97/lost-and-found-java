@@ -7,10 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="item")
+
 public class Item {
-	@Id
 	protected int id;
 	
 	private String descricao;
