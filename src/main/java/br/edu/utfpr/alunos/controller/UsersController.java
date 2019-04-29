@@ -74,7 +74,7 @@ public class UsersController extends HttpServlet {
 	}
 	
 	private void showNewFormUser(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/register.jsp");
 		dispatcher.forward(request, response);
 	}
 	
