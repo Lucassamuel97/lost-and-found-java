@@ -1,19 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:simple title="Lost And Found- Home">
+<t:simple title="Lost And Found- Login">
 	<jsp:body>
 		<div id="telaLogin">
   			<div class="container">
     			<div class="card card-login mx-auto mt-5 fundo">
       				<div class="card-header">
       					<div class="text-center">
-      						<img src="<?= URL_IMG . 'logo.png' ?>">
+      						<img src="resources/img/logo.png">
       					</div>
       				</div>
       				<div class="card-body">
-        				<form action="<?= URL_RAIZ . 'login' ?>" method="post"
-							class="margin-bottom">
+        				<form action="entrar" method="post" class="margin-bottom">
           						<div class="form-group">
             						<label for="nome">Nome:</label>
             						<input class="form-control" id="nome" type="text"
@@ -25,8 +24,17 @@
             						<input class="form-control" id="senha" name="senha"
 									type="password" placeholder="Digite a senha">
           						</div>
-          						<button class="btn btn-primary btn-block" type="submit"
-								value="entrar" name="entrar">Login</button>
+          						
+          						<div class="row">
+    								<div class="col">
+      								<button class="btn btn-outline-primary btn-block" type="submit"
+									value="entrar" name="entrar">Login</button>
+   									 </div>
+    							<div class="col">
+	      							<button class="btn btn btn-outline-light btn-block" type="submit"
+									value="entrar" name="entrar">Cadastro</button>
+    							</div>
+  								</div>
         					</form>
 				      </div>
     			  </div>

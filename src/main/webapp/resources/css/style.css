@@ -454,7 +454,7 @@ footer.sticky-footer {
  float: left;
  width: 100vw;
  height: 100vh;
- background: url(../img/login.png) no-repeat center center fixed;
+ background: url(../img/login.jpg) no-repeat center center fixed;
  background-size: cover; /*Css padrão*/
  -webkit-background-size: cover; /*Css safari e chrome*/
  -moz-background-size: cover; /*Css firefox*/
@@ -463,7 +463,7 @@ footer.sticky-footer {
 
 }
 .fundo{
- background-color: rgba(0,0,0,0.6);
+ background-color: rgba(0,0,0,0.8);
  color: white;
 
 }
@@ -493,4 +493,8 @@ table{
 
 .inline {
   display: inline;
+}
+
+.ul-dec{
+	list-style-type: circle; 
 }
