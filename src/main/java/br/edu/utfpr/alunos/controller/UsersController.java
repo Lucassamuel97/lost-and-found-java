@@ -10,16 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import br.edu.utfpr.alunos.dao.UsersDAO;
+import br.edu.utfpr.alunos.dao.UserDAO;
 import br.edu.utfpr.alunos.model.User;
 
 @WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar","/usuarios/list","/usuarios/*"})
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UsersDAO usersDao;
+	private UserDAO userDao;
 	
 	public void init() {
-		usersDao = new UsersDAO();
+		userDao = new UserDAO(); 
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -67,7 +67,7 @@ public class UsersController extends HttpServlet {
 	
 	private void listUsers(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<User> listUsers = usersDao.findAll();
+		List<User> listUsers = userDao.findAll();
 		request.setAttribute("listUsers", listUsers);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserList.jsp");
 		dispatcher.forward(request, response);
@@ -86,7 +86,7 @@ public class UsersController extends HttpServlet {
 			String email = request.getParameter("email");
 			
 			User user = new User(login, pwd, telefone, email);
-			usersDao.create(user);
+			userDao.create(user);
 			
 			response.sendRedirect("listar");
 	}
@@ -94,7 +94,7 @@ public class UsersController extends HttpServlet {
 	private void showEditFormUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		User resultUser  = usersDao.find(id);
+		User resultUser  = userDao.find(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserForm.jsp");
 		request.setAttribute("user", resultUser);
 		dispatcher.forward(request, response);
@@ -109,7 +109,7 @@ public class UsersController extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		User user = new User(id, login, pwd, telefone, email);
-		usersDao.update(user);
+		userDao.update(user);
 
 		response.sendRedirect("list");
 	}
@@ -119,7 +119,7 @@ public class UsersController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		User user = new User(id);
-		usersDao.delete(user);
+		userDao.delete(user);
 		response.sendRedirect("list");
 	}
 	

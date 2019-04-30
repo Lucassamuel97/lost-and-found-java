@@ -8,9 +8,9 @@ import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import br.edu.utfpr.alunos.model.User;
 
-public class UsersDAO extends SqlBase {
+public class UserDAO extends SqlBase {
 
-	public UsersDAO() {
+	public UserDAO() {
 
 		open();
 
