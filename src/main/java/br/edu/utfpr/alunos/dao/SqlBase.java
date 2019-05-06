@@ -7,7 +7,7 @@ import com.mysql.jdbc.Connection;
 public class SqlBase {
 
 	private String user = "root";
-	private String password = "htzzx.pp/";
+	private String password = "";
 	protected Connection conection = null;
 
 	public Connection open() {

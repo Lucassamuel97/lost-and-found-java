@@ -1,155 +1,68 @@
 package br.edu.utfpr.alunos.dao;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
-
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
+import javax.persistence.EntityManager;
 import br.edu.utfpr.alunos.model.User;
+import br.edu.utfpr.alunos.service.Manager;
 
-public class UserDAO extends SqlBase {
+public class UserDAO {
+
+	protected EntityManager entityManager;
 
 	public UserDAO() {
+		entityManager = Manager.getInstance().getEm();
+	}
 
-		open();
+	public User getById(final int id) {
+		return entityManager.find(User.class, id);
+	}
 
-		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS `users`  (\r\n" + 
-					"  `id` int(11) NOT NULL AUTO_INCREMENT,\r\n" + 
-					"  `login` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,\r\n" + 
-					"  `pwd` varchar(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,\r\n" + 
-					"  `telefone` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,\r\n" + 
-					"  `email` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,\r\n" + 
-					"  PRIMARY KEY (`id`) USING BTREE\r\n" + 
-					")"+ "ENGINE = InnoDB;");
-			
-			stm.executeUpdate();
+	@SuppressWarnings("unchecked")
+	public List<User> findAll() {
+		return entityManager.createQuery("FROM " + User.class.getName()).getResultList();
+	}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
+	public void persist(User user) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(user);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
 		}
 	}
-	
-	public User create(User user) {
 
-		open();
-		
-		User UserResult = new User();
-		
+	public void merge(User user) {
 		try {
-			PreparedStatement statement = (PreparedStatement) conection.prepareStatement("INSERT INTO users(login, pwd, telefone, email) VALUES (?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
-				statement.setString(1, user.getLogin());
-				statement.setString(2, user.getPwd());
-				statement.setString(3, user.getTelefone());
-				statement.setString(4, user.getEmail());
-		
-				statement.executeUpdate();
-				
-				ResultSet resultSet = statement.getGeneratedKeys();
-				if(resultSet.next()) {
-					UserResult = user;
-					UserResult.setId(resultSet.getInt(1));
-				}
-				
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close();
-		}
-		return UserResult;
-	}
-	
-	public List<User> findAll(){
-		ArrayList<User> result = new ArrayList<>();
-		
-		open();
-		
-		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("SELECT * FROM users ORDER BY login");
-			ResultSet resultSet = stm.executeQuery();
-			
-			while (resultSet.next()) {
-				User user = new User(resultSet.getInt(1), resultSet.getString(2),resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
-				result.add(user);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		
-		return result;
-	}
-	
-	public void update(User user) {
-		
-		open();
-		
-		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("UPDATE users SET login = ?, pwd = ?, telefone = ?, email = ? WHERE id = ?");
-			stm.setString(1, user.getLogin());
-			stm.setString(2, user.getPwd());
-			stm.setString(3, user.getTelefone());
-			stm.setString(4, user.getEmail());
-			stm.setInt(5, user.getId());
-			
-			stm.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		} finally {
-			close();
+			entityManager.getTransaction().begin();
+			entityManager.merge(user);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
 		}
 	}
-	
-	public void delete(User user) {
-		
-		open();
-		
-		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("DELETE FROM users WHERE id = ?" );
-			stm.setInt(1, user.getId());
-			stm.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		} finally {
-			close();
-		}
-	}
-	
-	public User find(int id){
-		User userResult = new User();
-		open();
-		
-		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("SELECT * FROM users WHERE id = ?");
-			stm.setInt(1, id);
-			
-			ResultSet resultSet = stm.executeQuery();
-			
-			if (resultSet.next()) {
-				userResult.setId(resultSet.getInt(1));
-				userResult.setLogin(resultSet.getString(2));
-				userResult.setPwd(resultSet.getString(3));
-				userResult.setTelefone(resultSet.getString(4));
-				userResult.setEmail(resultSet.getString(5));
 
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close();
+	public void remove(User user) {
+		try {
+			entityManager.getTransaction().begin();
+			user = entityManager.find(User.class, user.getId());
+			entityManager.remove(user);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
 		}
-		
-		return userResult;
 	}
+
+	public void removeById(final int id) {
+		try {
+			User user = getById(id);
+			remove(user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
