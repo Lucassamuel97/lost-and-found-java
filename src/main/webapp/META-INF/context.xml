@@ -6,7 +6,7 @@
          
     <Realm  className="org.apache.catalina.realm.JDBCRealm"
     	driverName="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://localhost:3306/tomcat"
+        connectionURL="jdbc:mysql://localhost:3306/lost_and_found"
         connectionName="root" 
         connectionPassword=""        
         userTable="users" userNameCol="login" userCredCol="pwd"
