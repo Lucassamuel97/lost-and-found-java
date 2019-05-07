@@ -38,21 +38,21 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Home"><a class="nav-link" href="#"> <i
+					title="Home"><a class="nav-link" href=""> <i
 						class="fa fa-home" aria-hidden="true"></i> <span
 						class="nav-link-text">Home</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Feed"><a class="nav-link" href="#"> <i
+					title="Feed"><a class="nav-link" href="feed"> <i
 						class="fa fa-list-alt" aria-hidden="true"></i> <span
 						class="nav-link-text">Feed</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Minhas Postagens"><a class="nav-link" href="#"><i
+					title="Minhas Postagens"><a class="nav-link" href="meusposts"><i
 						class="fa fa-th-list" aria-hidden="true"></i> <span
 						class="nav-link-text">Minhas Postagens</span> </a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Dados"><a class="nav-link" href="#"> <i
+					title="Dados"><a class="nav-link" href="usuarios/editar?id=5"> <i
 						class="fa fa-id-card-o" aria-hidden="true"></i> <span
 						class="nav-link-text">Dados</span>
 				</a></li>

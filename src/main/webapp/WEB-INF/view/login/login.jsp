@@ -27,12 +27,11 @@
           						
           						<div class="row">
     								<div class="col">
-      								<button class="btn btn-outline-primary btn-block" type="submit"
-									value="entrar" name="entrar">Login</button>
+      								<button class="btn btn-outline-primary btn-block"
+										type="submit" value="entrar" name="entrar">Login</button>
    									 </div>
     							<div class="col">
-	      							<button class="btn btn btn-outline-light btn-block" type="submit"
-									value="entrar" name="entrar">Cadastro</button>
+									<a href="usuarios/cadastro" class="btn btn-outline-light btn-block">Cadastro</a>
     							</div>
   								</div>
         					</form>

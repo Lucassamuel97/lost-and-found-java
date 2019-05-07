@@ -1,7 +1,15 @@
 package br.edu.utfpr.alunos.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="users")
 public class User {
+	@Id
+	@GeneratedValue
 	protected int id;
 	
 	private String login;

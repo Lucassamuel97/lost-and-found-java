@@ -86,7 +86,7 @@ public class UsersController extends HttpServlet {
 			String email = request.getParameter("email");
 			
 			User user = new User(login, pwd, telefone, email);
-			userDao.create(user);
+			userDao.persist(user);
 			
 			response.sendRedirect("listar");
 	}
@@ -94,7 +94,7 @@ public class UsersController extends HttpServlet {
 	private void showEditFormUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		User resultUser  = userDao.find(id);
+		User resultUser  = userDao.getById(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserForm.jsp");
 		request.setAttribute("user", resultUser);
 		dispatcher.forward(request, response);
@@ -109,7 +109,7 @@ public class UsersController extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		User user = new User(id, login, pwd, telefone, email);
-		userDao.update(user);
+		userDao.merge(user);
 
 		response.sendRedirect("list");
 	}
@@ -119,7 +119,7 @@ public class UsersController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		User user = new User(id);
-		userDao.delete(user);
+		userDao.remove(user);
 		response.sendRedirect("list");
 	}
 	
