@@ -12,7 +12,7 @@
       					</div>
       				</div>
       				<div class="card-body">
-        				<form action="entrar" method="post" class="margin-bottom">
+        				<form action="login" method="post" class="margin-bottom">
           						<div class="form-group">
             						<label for="nome">Nome:</label>
             						<input class="form-control" id="nome" type="text"
