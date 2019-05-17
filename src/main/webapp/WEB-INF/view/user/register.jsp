@@ -20,8 +20,8 @@
 
        </div>
        <div class="col-md-7">
-        <label for="senha">Senha: </label>
-        <input class="form-control" id="senha" name="senha" type="text">
+        <label for="pwd">Senha: </label>
+        <input class="form-control" id="pwd" name="pwd" type="text">
       </div>
     </div>
   </div>
