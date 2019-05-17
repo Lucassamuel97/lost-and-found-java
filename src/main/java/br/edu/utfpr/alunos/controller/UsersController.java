@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import br.edu.utfpr.alunos.dao.UserDAO;
 import br.edu.utfpr.alunos.model.User;
+import br.edu.utfpr.alunos.util.Sha256Generator;
 
 @WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar","/usuarios/list","/usuarios/*"})
 public class UsersController extends HttpServlet {
@@ -86,7 +87,13 @@ public class UsersController extends HttpServlet {
 			String email = request.getParameter("email");
 			
 			User user = new User(login, pwd, telefone, email);
+			
+			final String hashed = Sha256Generator.generate(user.getPwd());
+	        user.setPwd(hashed);
+			
 			userDao.persist(user);
+			
+			System.out.println(user);
 			
 			response.sendRedirect("listar");
 	}
