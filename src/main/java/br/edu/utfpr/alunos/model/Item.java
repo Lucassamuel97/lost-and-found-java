@@ -2,36 +2,52 @@ package br.edu.utfpr.alunos.model;
 
 import java.sql.Date;
 import java.time.LocalTime;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+@Entity
+@Table(name="items")
 public class Item {
+	@Id
+	@GeneratedValue
 	protected int id;
 	
 	private String descricao;
 	private String local;
 	private LocalTime horario;
-	private Date date;
+	private Date data;
 	private char status;
-	private int id_user;
 	
-	public Item() {
-		
+	@ManyToMany
+	private Set<User> users;
+	
+	public Item() {	
 	}
-
-	public Item(int id, String descricao, String local, LocalTime horario, Date date, char status, int id_user) {
+	
+	public Item(String descricao, String local, LocalTime horario, 
+			Date date, char status, Set<User> users) {
 		super();
-		this.id = id;
 		this.descricao = descricao;
 		this.local = local;
 		this.horario = horario;
-		this.date = date;
+		this.data = date;
 		this.setStatus(status);
-		this.id_user = id_user;
+		this.users = users;
 	}
 
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -65,19 +81,11 @@ public class Item {
 	}
 
 	public Date getDate() {
-		return date;
+		return data;
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public int getId_user() {
-		return id_user;
-	}
-
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
+		this.data = date;
 	}
 
 	public char getStatus() {
