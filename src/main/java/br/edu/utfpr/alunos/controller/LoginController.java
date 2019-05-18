@@ -40,6 +40,9 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
+		System.out.println(username);
+		System.out.println(password);
+		
 		try {
 			request.login(username, password);
 
