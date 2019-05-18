@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import br.edu.utfpr.alunos.dao.UserDAO;
 import br.edu.utfpr.alunos.model.User;
 import br.edu.utfpr.alunos.util.Sha256Generator;
+import br.edu.utfpr.alunos.model.Role;
+import br.edu.utfpr.alunos.util.Constants;
 
 @WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar","/usuarios/list","/usuarios/*"})
 public class UsersController extends HttpServlet {
@@ -90,12 +92,13 @@ public class UsersController extends HttpServlet {
 			
 			final String hashed = Sha256Generator.generate(user.getPwd());
 	        user.setPwd(hashed);
+	        
+	        Role role = new Role(user.getLogin(), Constants.USER);
 			
-			userDao.persist(user);
-			
-			System.out.println(user);
-			
-			response.sendRedirect("listar");
+			userDao.persist(user, role);
+						
+			String address = request.getContextPath() + "/login";
+            response.sendRedirect(address);
 	}
 	
 	private void showEditFormUser(HttpServletRequest request, HttpServletResponse response)
