@@ -15,8 +15,8 @@
         				<form action="login" method="post" class="margin-bottom">
           						<div class="form-group">
             						<label for="nome">Nome:</label>
-            						<input class="form-control" id="nome" type="text"
-									name="nome" aria-describedby="emailHelp"
+            						<input class="form-control" id="username" type="text"
+									name="username" aria-describedby="emailHelp"
 									placeholder="Digite o Nome">
           						</div>
           						<div class="form-group">

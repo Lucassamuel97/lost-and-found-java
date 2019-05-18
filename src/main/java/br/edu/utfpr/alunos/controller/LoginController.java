@@ -59,5 +59,4 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("login?error"+e);
 		}
 	}
-
 }
