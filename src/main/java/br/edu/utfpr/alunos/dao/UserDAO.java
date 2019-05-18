@@ -2,6 +2,8 @@ package br.edu.utfpr.alunos.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+
+import br.edu.utfpr.alunos.model.Role;
 import br.edu.utfpr.alunos.model.User;
 import br.edu.utfpr.alunos.service.Manager;
 
@@ -22,10 +24,11 @@ public class UserDAO {
 		return entityManager.createQuery("FROM " + User.class.getName()).getResultList();
 	}
 
-	public void persist(User user) {
+	public void persist(User user, Role role) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
+			entityManager.persist(role);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
