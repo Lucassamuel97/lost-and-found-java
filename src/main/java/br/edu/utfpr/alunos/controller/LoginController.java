@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.edu.utfpr.alunos.dao.UserDAO;
+import br.edu.utfpr.alunos.model.User;
 import br.edu.utfpr.alunos.util.Constants;
 import br.edu.utfpr.alunos.util.Routes;
 
@@ -39,22 +41,23 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
-		System.out.println(username);
-		System.out.println(password);
-		
+				
 		try {
 			request.login(username, password);
 
 			HttpSession session = request.getSession();
 			session.setAttribute("username", request.getUserPrincipal().getName());
 			
+			UserDAO userdao = new UserDAO();
+			User usuario = userdao.getByName(username);
+			session.setAttribute("userid", usuario.getId());
+			
 			if(request.isUserInRole(Constants.ADMIN)) {
-				String address = "a";
+				String address = "a/home";
 				response.sendRedirect(address);
 			}
 			else {
-				String address = "u";
+				String address = "u/home";
 				response.sendRedirect(address);
 			}
 		}

@@ -31,8 +31,7 @@ public class WelcomePageFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		String address = ((HttpServletRequest) request).getServletPath();
-		
+		String address = ((HttpServletRequest) request).getServletPath();		
 		if (!(address.equals("/") || address.equals(""))) {
 			// pass the request along the filter chain
 			chain.doFilter(request, response);
@@ -47,10 +46,10 @@ public class WelcomePageFilter implements Filter {
 			} else {
 				//redireciona de acordo com o perfil do usuário
 				if (req.isUserInRole(Constants.ADMIN)) {
-					address = "a";
+					address = "a/home";
 					((HttpServletResponse) response).sendRedirect(address);
 				} else {
-					address = "u";
+					address = "u/home";
 					((HttpServletResponse) response).sendRedirect(address);
 				}
 			}
