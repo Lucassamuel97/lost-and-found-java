@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
 import br.edu.utfpr.alunos.util.JPAUtil;
+
 
 @SuppressWarnings("unchecked")
 public class AbstractDAO<PK, T> {
