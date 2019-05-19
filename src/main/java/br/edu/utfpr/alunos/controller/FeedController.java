@@ -17,12 +17,13 @@ public class FeedController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			
-		showLogin(request, response);
+		showFeed(request, response);
 	}
 	
-	private void showLogin(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void showFeed(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/feed/feed.jsp");
 		dispatcher.forward(request, response);
 	}
+	
 		
 }

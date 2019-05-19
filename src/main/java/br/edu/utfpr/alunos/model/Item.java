@@ -26,7 +26,7 @@ public class Item {
 	@ManyToMany
 	private Set<User> users;
 	
-	public Item() {	
+	public Item(){	
 	}
 	
 	public Item(String descricao, String local, LocalTime horario, 

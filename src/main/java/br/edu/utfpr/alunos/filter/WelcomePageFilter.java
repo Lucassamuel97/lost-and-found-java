@@ -47,10 +47,10 @@ public class WelcomePageFilter implements Filter {
 			} else {
 				//redireciona de acordo com o perfil do usuário
 				if (req.isUserInRole(Constants.ADMIN)) {
-					address = "a";
+					address = "a/home";
 					((HttpServletResponse) response).sendRedirect(address);
 				} else {
-					address = "u";
+					address = "u/home";
 					((HttpServletResponse) response).sendRedirect(address);
 				}
 			}
