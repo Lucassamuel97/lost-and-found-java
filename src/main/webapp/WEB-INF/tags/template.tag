@@ -67,14 +67,9 @@
 				<li class="nav-item"><a class="nav-link" href="user"> <i
 						class="fa fa-user-circle" aria-hidden="true"></i> Usuário: Username
 				</a></li>
-				<li class="nav-item">
-					<form action="sair" method="post" class="inline">
-						<input type="hidden" name="_metodo" value="DELETE"> <a
-							href="" class="nav-link"
-							onclick="event.preventDefault(); this.parentNode.submit()"> <i
+				<li class="nav-item"> <a href="logout" class="nav-link"> <i
 							class="fa fa-fw fa-sign-out"></i>Sair
 						</a>
-					</form>
 				</li>
 			</ul>
 		</div>
