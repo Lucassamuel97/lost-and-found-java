@@ -1,13 +1,8 @@
 package br.edu.utfpr.alunos.model;
 
-import java.sql.Date;
-import java.time.LocalTime;
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,34 +14,50 @@ public class Item {
 	
 	private String descricao;
 	private String local;
-	private LocalTime horario;
-	private Date data;
+	private String horario;
+	private String data;
 	private char status;
 	
-	@ManyToMany
-	private Set<User> users;
+	private int idusersrecord;
+	private int iduserfound;
 	
 	public Item(){	
 	}
 	
-	public Item(String descricao, String local, LocalTime horario, 
-			Date date, char status, Set<User> users) {
+	public Item(int id) {
+		this.id = id;
+	}
+	public Item(int id , String descricao, String local, String horario, 
+			String date, char status ) {
 		super();
 		this.descricao = descricao;
 		this.local = local;
 		this.horario = horario;
 		this.data = date;
 		this.setStatus(status);
-		this.users = users;
+	}
+	
+	public Item(String descricao, String local, String horario, 
+			String date, char status ) {
+		super();
+		this.descricao = descricao;
+		this.local = local;
+		this.horario = horario;
+		this.data = date;
+		this.setStatus(status);
+	}
+	
+	public Item(String descricao, String local, String horario, 
+			String date, char status, int user) {
+		super();
+		this.descricao = descricao;
+		this.local = local;
+		this.horario = horario;
+		this.data = date;
+		this.setStatus(status);
+		this.idusersrecord = user;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
 	
 	public int getId() {
 		return id;
@@ -72,19 +83,19 @@ public class Item {
 		this.local = local;
 	}
 
-	public LocalTime getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
-	public void setHorario(LocalTime horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return data;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.data = date;
 	}
 
@@ -94,5 +105,22 @@ public class Item {
 
 	public void setStatus(char status) {
 		this.status = status;
-	}	
+	}
+	
+	public int getUsersrecord() {
+		return idusersrecord;
+	}
+
+	public void setUsersrecord(int usersrecord) {
+		this.idusersrecord = usersrecord;
+	}
+
+	public int getUserfound() {
+		return iduserfound;
+	}
+
+	public void setUserfound(int userfound) {
+		this.iduserfound = userfound;
+	}
+	
 }

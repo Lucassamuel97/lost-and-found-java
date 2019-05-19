@@ -31,8 +31,7 @@ public class WelcomePageFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		String address = ((HttpServletRequest) request).getServletPath();
-		
+		String address = ((HttpServletRequest) request).getServletPath();		
 		if (!(address.equals("/") || address.equals(""))) {
 			// pass the request along the filter chain
 			chain.doFilter(request, response);
