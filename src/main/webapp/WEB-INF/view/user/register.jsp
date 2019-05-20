@@ -21,7 +21,7 @@
        </div>
        <div class="col-md-7">
         <label for="pwd">Senha: </label>
-        <input class="form-control" id="pwd" name="pwd" type="text">
+        <input class="form-control" id="pwd" name="pwd" type="password">
       </div>
     </div>
   </div>

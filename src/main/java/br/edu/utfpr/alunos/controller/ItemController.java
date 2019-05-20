@@ -20,7 +20,7 @@ import br.edu.utfpr.alunos.dao.UserDAO;
 import br.edu.utfpr.alunos.model.Item;
 import br.edu.utfpr.alunos.model.User;
 
-@WebServlet(urlPatterns = {"/item/cadastro","/item/insert","/item/editar","/item/update","/item/deletar","/item/list","/item/*"})
+@WebServlet(urlPatterns = {"/item/cadastro","/item/insert","/item/editar","/item/update","/item/deletar","/item/list","/item/devolucao","/item/*"})
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemDAO itemdao;
@@ -39,6 +39,9 @@ public class ItemController extends HttpServlet {
 				break;
 			case "/item/update":
 				updateItem(request, response);
+				break;
+			case "/item/devolucao":
+				devolucaoItem(request, response);
 				break;
 			default:
 				showNewFormItem(request, response);
@@ -116,6 +119,26 @@ public class ItemController extends HttpServlet {
 		itemdao.merge(item);
 
 		response.sendRedirect("list");
+	}
+	
+	private void devolucaoItem(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		
+		int id      = Integer.parseInt(request.getParameter("id"));		
+		char status = 'D';
+		int userid  = (int) request.getSession().getAttribute("userid");
+		
+		Item item = itemdao.getById(id);
+		
+		//Verifica se não foi o mesmo usuario que fez a mensagem
+		if (item.getUsersrecord() != userid){
+			//Seta usuario logado que perdeu o objeto
+			item.setUserfound(userid);
+			item.setStatus(status);
+			itemdao.merge(item);
+		}
+		
+		String address = request.getContextPath() + "/feed";
+		response.sendRedirect(address);
 	}
 
 	private void deleteItem(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {

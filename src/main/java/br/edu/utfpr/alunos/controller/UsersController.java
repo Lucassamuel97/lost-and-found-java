@@ -100,18 +100,21 @@ public class UsersController extends HttpServlet {
 			String address = request.getContextPath() + "/login";
             response.sendRedirect(address);
 	}
-	
+	 
 	private void showEditFormUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
+		String message = request.getParameter("message");
 		int id = Integer.parseInt(request.getParameter("id"));
 		User resultUser  = userDao.getById(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/edit.jsp");
 		request.setAttribute("user", resultUser);
+		request.setAttribute("message", message);
 		dispatcher.forward(request, response);
 	}
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) 
 			throws SQLException, IOException {
+		
 		int id = Integer.parseInt(request.getParameter("id"));
 		String login = request.getParameter("login");
 		String pwd = request.getParameter("pwd");
@@ -119,9 +122,20 @@ public class UsersController extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		User user = new User(id, login, pwd, telefone, email);
-		userDao.merge(user);
 
-		response.sendRedirect("list");
+		final String hashed = Sha256Generator.generate(user.getPwd());
+        user.setPwd(hashed);
+		
+		String message = "Usuario atualizado com sucesso";;
+		try {
+			userDao.merge(user);
+		} catch (Exception e) {
+			message = "Erro "+e.getMessage();
+		}
+	
+		
+		String address = request.getContextPath() + "/usuarios/editar?id="+id+"&message="+message;
+		response.sendRedirect(address);
 	}
 	
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) 

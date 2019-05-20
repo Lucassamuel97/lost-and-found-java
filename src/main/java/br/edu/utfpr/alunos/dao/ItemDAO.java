@@ -21,28 +21,18 @@ public class ItemDAO{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Item> searchFilter(String propertyValue){		
-		String queryString = "SELECT o FROM Item o where o.descricao like :param and o.status = 'A'";		
+	public List<Item> searchFilter(int id, String busca){		
+		String queryString = "SELECT o FROM Item o where o.idusersrecord != :param and o.descricao like :busca and o.status = 'A'";		
 		
 		Query query = entityManager.createQuery(queryString);		
-		query.setParameter("param", '%' +propertyValue + '%');
+		query.setParameter("param", id);
+		query.setParameter("busca", '%'+busca+'%');
 		
 		List<Item> queryResult = query.getResultList();
 	   
 	    return queryResult;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Item> searchAll(){		
-		String queryString = "SELECT o FROM Item o where o.status = 'A'";
+	} 
 		
-		Query query = entityManager.createQuery(queryString);		
-		
-		List<Item> queryResult = query.getResultList();
-	    
-		return queryResult;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<Item> searchMyposts(int id, String busca){		
 		String queryString = "SELECT o FROM Item o where o.idusersrecord = :param and o.descricao like :busca";
