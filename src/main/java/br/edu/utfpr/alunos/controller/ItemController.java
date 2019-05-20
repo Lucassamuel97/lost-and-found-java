@@ -20,7 +20,7 @@ import br.edu.utfpr.alunos.dao.UserDAO;
 import br.edu.utfpr.alunos.model.Item;
 import br.edu.utfpr.alunos.model.User;
 
-@WebServlet(urlPatterns = {"/item/cadastro","/item/insert","/item/editar","/item/update","/item/deletar","/item/list","/item/devolucao","/item/*"})
+@WebServlet(urlPatterns = {"/u/item/cadastro","/u/item/insert","/u/item/editar","/u/item/update","/u/item/deletar","/u/item/list","/u/item/devolucao","/u/item/*"})
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemDAO itemdao;
@@ -34,13 +34,13 @@ public class ItemController extends HttpServlet {
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-			case "/item/insert":
+			case "/u/item/insert":
 				insertItem(request, response);
 				break;
-			case "/item/update":
+			case "/u/item/update":
 				updateItem(request, response);
 				break;
-			case "/item/devolucao":
+			case "/u/item/devolucao":
 				devolucaoItem(request, response);
 				break;
 			default:
@@ -57,13 +57,13 @@ public class ItemController extends HttpServlet {
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-			case "/item/cadastro":
+			case "/u/item/cadastro":
 				showNewFormItem(request, response);
 				break;
-			case "/item/editar":
+			case "/u/item/editar":
 				showEditFormItem(request, response);
 				break;
-			case "/item/deletar":
+			case "/u/item/deletar":
 				deleteItem(request, response);
 				break;
 			default:
@@ -90,10 +90,11 @@ public class ItemController extends HttpServlet {
 		char status      = 'A';
 		
 		int userid = (int) request.getSession().getAttribute("userid");	
+		String typeuser = (String) request.getSession().getAttribute("typeuser");	
 		
 		Item item = new Item(descricao, local, horario, date, status, userid);	
 		itemdao.persist(item);
-		String address = request.getContextPath() + "/feed";
+		String address = request.getContextPath()+"/"+typeuser+ "/feed";
 		response.sendRedirect(address);
 	}
 

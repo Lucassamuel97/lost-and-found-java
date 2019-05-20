@@ -66,10 +66,12 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("userid", usuario.getId());
 			
 			if(request.isUserInRole(Constants.ADMIN)) {
+				session.setAttribute("typeuser", "a");
 				String address = "a/home";
 				response.sendRedirect(address);
 			}
 			else {
+				session.setAttribute("typeuser", "u");
 				String address = "u/home";
 				response.sendRedirect(address);
 			}

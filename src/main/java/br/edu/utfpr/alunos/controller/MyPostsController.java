@@ -14,7 +14,7 @@ import br.edu.utfpr.alunos.dao.ItemDAO;
 import br.edu.utfpr.alunos.model.Item;
  
 
-@WebServlet(urlPatterns = {"/meusposts/*"})
+@WebServlet(urlPatterns = {"/a/meusposts","/u/meusposts"})
 public class MyPostsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemDAO itemDAO;

@@ -10,13 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.edu.utfpr.alunos.dao.RoleDAO;
 import br.edu.utfpr.alunos.dao.UserDAO;
 import br.edu.utfpr.alunos.model.User;
 import br.edu.utfpr.alunos.util.Sha256Generator;
 import br.edu.utfpr.alunos.model.Role;
 import br.edu.utfpr.alunos.util.Constants;
 
-@WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/usuarios/editar","/usuarios/update","/usuarios/deletar","/usuarios/list","/usuarios/*"})
+@WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/u/usuarios/editar","/u/usuarios/update","/a/usuarios/deletar","/a/usuarios/list"})
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDao;
@@ -33,11 +35,12 @@ public class UsersController extends HttpServlet {
 			case "/usuarios/insert":
 				insertUser(request, response);
 				break;
-			case "/usuarios/update":
+			case "/u/usuarios/update":
 				updateUser(request, response);
 				break;
 			default:
-				listUsers(request, response);
+				String address = request.getContextPath()+"/login";
+				response.sendRedirect(address);
 				break;
 			}
 		} catch (SQLException ex) {
@@ -53,14 +56,18 @@ public class UsersController extends HttpServlet {
 			case "/usuarios/cadastro":
 				showNewFormUser(request, response);
 				break;
-			case "/usuarios/editar":
+			case "/u/usuarios/editar":
 				showEditFormUser(request, response);
 				break;
-			case "/usuarios/deletar":
+			case "/a/usuarios/deletar":
 				deleteUser(request, response);
 				break;
-			default:
+			case "/a/usuarios/list":
 				listUsers(request, response);
+				break;
+			default:
+				String address = request.getContextPath()+"/login";
+				response.sendRedirect(address);
 				break;
 			}
 		} catch (SQLException ex) {
@@ -104,8 +111,8 @@ public class UsersController extends HttpServlet {
 	private void showEditFormUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		String message = request.getParameter("message");
-		int id = Integer.parseInt(request.getParameter("id"));
-		User resultUser  = userDao.getById(id);
+		int userid = (int) request.getSession().getAttribute("userid");	
+		User resultUser  = userDao.getById(userid);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/edit.jsp");
 		request.setAttribute("user", resultUser);
 		request.setAttribute("message", message);
@@ -115,16 +122,24 @@ public class UsersController extends HttpServlet {
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) 
 			throws SQLException, IOException {
 		
+		//Reculpera os parametros
 		int id = Integer.parseInt(request.getParameter("id"));
 		String login = request.getParameter("login");
 		String pwd = request.getParameter("pwd");
 		String telefone = request.getParameter("telefone");
 		String email = request.getParameter("email");
 		
-		User user = new User(id, login, pwd, telefone, email);
-
-		final String hashed = Sha256Generator.generate(user.getPwd());
-        user.setPwd(hashed);
+		//Busca usuario
+		User user = userDao.getById(id);
+		
+		//Altera os Dados do usuario
+		user.setLogin(login);
+		user.setEmail(email);
+		user.setTelefone(telefone);
+		if (pwd != null) {
+			final String hashed = Sha256Generator.generate(pwd);
+	        user.setPwd(hashed);
+		}
 		
 		String message = "Usuario atualizado com sucesso";;
 		try {
@@ -133,8 +148,9 @@ public class UsersController extends HttpServlet {
 			message = "Erro "+e.getMessage();
 		}
 	
+		String typeuser = (String) request.getSession().getAttribute("typeuser");
 		
-		String address = request.getContextPath() + "/usuarios/editar?id="+id+"&message="+message;
+		String address = request.getContextPath()+ "/"+typeuser+"/usuarios/editar?id="+id+"&message="+message;
 		response.sendRedirect(address);
 	}
 	
