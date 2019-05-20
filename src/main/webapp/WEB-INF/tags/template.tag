@@ -43,16 +43,16 @@
 						class="nav-link-text">Home</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Feed"><a class="nav-link" href="feed"> <i
+					title="Feed"><a class="nav-link" href="${typeuser}/feed"> <i
 						class="fa fa-list-alt" aria-hidden="true"></i> <span
 						class="nav-link-text">Feed</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Minhas Postagens"><a class="nav-link" href="meusposts"><i
+					title="Minhas Postagens"><a class="nav-link" href="${typeuser}/meusposts"><i
 						class="fa fa-th-list" aria-hidden="true"></i> <span
 						class="nav-link-text">Minhas Postagens</span> </a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Dados"><a class="nav-link" href="usuarios/editar?id=5"> <i
+					title="Dados"><a class="nav-link" href="${typeuser}/usuarios/editar?id=5"> <i
 						class="fa fa-id-card-o" aria-hidden="true"></i> <span
 						class="nav-link-text">Dados</span>
 				</a></li>

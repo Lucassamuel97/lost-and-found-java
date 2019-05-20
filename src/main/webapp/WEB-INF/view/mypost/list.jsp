@@ -24,7 +24,7 @@
 								<button class="btn btn-info btn-block" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Pesquisar </button>
 							</div>
 							<div class="col-md-2">
-								<a href="item/cadastro"
+								<a href="${typeuser}/item/cadastro"
 											class="btn btn-success text-white btn-block">Postar Objeto <i
 											class="fa fa-plus" aria-hidden="true"></i></a>
 							</div>
@@ -55,7 +55,7 @@
                              
                              
                              <p>${item.getStatus()}</p>
-                             <c:if test='${item.getStatus() eq 'A'}'>
+                             <c:if test='${item.getStatus() eq A}'>
                             	<a href="#" class="btn btn-primary">Status: Ativo</a>  
                              </c:if>
 

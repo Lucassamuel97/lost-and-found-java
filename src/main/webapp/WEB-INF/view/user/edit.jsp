@@ -23,8 +23,8 @@
 						<p>${message}</p>
 					</div>
 			</c:if>
-				
-             <form action="usuarios/update" method="POST"> 
+			
+			<form action="${typeuser}/usuarios/update" method="POST"> 
              	<c:if test="${user != null}">
 					<input type="hidden" name="id" value="<c:out value='${user.id}' />" />
 				</c:if>  

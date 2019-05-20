@@ -14,7 +14,7 @@ import br.edu.utfpr.alunos.dao.ItemDAO;
 import br.edu.utfpr.alunos.model.Item;
 
 
-@WebServlet(urlPatterns = {"/feed/*"})
+@WebServlet(urlPatterns = {"/a/feed","/u/feed"})
 public class FeedController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemDAO itemDAO;
