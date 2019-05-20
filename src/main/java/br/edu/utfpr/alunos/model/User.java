@@ -1,9 +1,14 @@
 package br.edu.utfpr.alunos.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import br.edu.utfpr.alunos.model.Item;
 
 @Entity
 @Table(name="users")
@@ -16,6 +21,9 @@ public class User {
 	private String pwd;
 	private String telefone;
 	private String email;
+	
+	@ManyToMany
+	private Set<Item> item;
 	
 	public User() {
 	}

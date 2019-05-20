@@ -1,9 +1,12 @@
 package br.edu.utfpr.alunos.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +17,15 @@ import br.edu.utfpr.alunos.model.User;
 import br.edu.utfpr.alunos.util.Constants;
 import br.edu.utfpr.alunos.util.Routes;
 
+
 /**
  * Servlet implementation class LoginController
  */
 @WebServlet(urlPatterns = {"/login", "/logout"})
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private HttpSession session;
+	private Boolean isLoggedIn;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -42,9 +48,16 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 				
+		session = request.getSession();
+		isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+		
+		remember(response);
+		
 		try {
 			request.login(username, password);
-
+			
+			remember(response);
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("username", request.getUserPrincipal().getName());
 			
@@ -63,6 +76,16 @@ public class LoginController extends HttpServlet {
 		}
 		catch (Exception e) {
 			response.sendRedirect("login?error"+e);
+		}
+	}
+	
+	private void remember(HttpServletResponse response) {
+		if(isLoggedIn == null) {
+			session.setAttribute("isLoggedIn", true);
+			
+			String f = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+			Cookie cookie = new Cookie("login-date", f);
+			response.addCookie(cookie);
 		}
 	}
 }
