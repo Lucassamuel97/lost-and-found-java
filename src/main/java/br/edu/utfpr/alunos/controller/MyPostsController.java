@@ -41,7 +41,7 @@ public class MyPostsController extends HttpServlet {
 		List<Item> listItems = itemDAO.searchMyposts(userid , busca);
 				
 		request.setAttribute("listItems", listItems);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/feed/feed.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/mypost/list.jsp");
 		dispatcher.forward(request, response);
 	}
 		

@@ -15,8 +15,7 @@
 		<div class="row">
 			<div class="col-12">
 				<h2>Objeto </h2>
-				<form action="item/insert" method="POST" id="validate">           
-					<input type="hidden" name="_metodo" value="PATCH">
+				<form action="item/insert" method="POST" id="validate">      
 					<div class="form-group">
 						<div class="form-row">							
 							<div class="col-md-6">

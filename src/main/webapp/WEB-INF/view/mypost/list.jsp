@@ -44,16 +44,27 @@
 										<c:out value="${item.getDescricao()}" />
 									</h5>
                              <p class="card-text">
-                             	<b>a</b>
+                             	<b></b>
                              </p>
-                            <p class="card-text">
-                                 <small class="text-muted"><c:out
-												value="${item.getDate()}" /> - <c:out
+                             <p class="card-text">
+                                 <small class="text-muted">Data de econtro: <c:out
+												value="${item.getDate()}" /> ás <c:out
 												value="${item.getHorario()}" /> hrs</small>
                             </p>
                              <a href="#" class="btn btn-outline-primary">Mais Detalhes</a>
-                             <a href="#" class="btn btn-primary">Status: Ativo</a> 
-                                              	
+                             
+                             
+                             <p>${item.getStatus()}</p>
+                             <c:if test='${item.getStatus() eq 'A'}'>
+                            	<a href="#" class="btn btn-primary">Status: Ativo</a>  
+                             </c:if>
+
+                             <c:if test='${item.getStatus() eq P}'>
+                            	<a href="#" class="btn btn-danger">Status: Expirado</a>  
+                             </c:if>
+                             <c:if test='${item.getStatus() eq D}'>
+                            	<a href="#" class="btn btn-success">Status: Devolvido</a>  
+                             </c:if>
                      </div>
                   </div>
            		</div>

@@ -47,16 +47,19 @@
 										<c:out value="${item.getDescricao()}" />
 									</h5>
                              <p class="card-text">
-                             	<b>a</b>
+                             	<b></b>
                              </p>
                             <p class="card-text">
-                                 <small class="text-muted"><c:out
-												value="${item.getDate()}" /> - <c:out
+                                 <small class="text-muted">Data de econtro: <c:out
+												value="${item.getDate()}" /> ás <c:out
 												value="${item.getHorario()}" /> hrs</small>
                             </p>
-                             <a href="#" class="btn btn-outline-primary">Mais Detalhes</a>
-                             <a href="#" class="btn btn-primary">Status: Ativo</a> 
-                                              	
+                            
+                             <a href="#" class="btn btn-outline-primary btn-block">Mais Detalhes</a>
+                             <form action="item/devolucao" method="post">
+                             	<input type="hidden" name="id" value="${item.getId()}">
+              					<a href="" class="btn btn-success text-white btn-block" onclick="event.preventDefault(); this.parentNode.submit()">Solicitar devolução</a>
+           					 </form> 
                      </div>
                   </div>
            		</div>

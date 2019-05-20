@@ -37,11 +37,15 @@
   </login-config>
   <error-page>
     <error-code>404</error-code>
-    <location>/WEB-INF/view/not-found.jsp</location>
+    <location>/WEB-INF/view/error/not-found.jsp</location>
+  </error-page>
+    <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/view/error/not-found.jsp</location>
   </error-page>
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>
-    <location>/WEB-INF/view/null.jsp</location>
+    <location>/WEB-INF/view/error/null.jsp</location>
   </error-page>
   <error-page>
     <location>/error-handler</location>

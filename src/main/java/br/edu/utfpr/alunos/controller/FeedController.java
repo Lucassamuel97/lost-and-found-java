@@ -29,16 +29,16 @@ public class FeedController extends HttpServlet {
 	}
 	
 	private void showFeed(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		
+		int userid = (int) request.getSession().getAttribute("userid");		
 		String busca = request.getParameter("busca");
+		if (busca == null || busca.isEmpty()) {
+        	busca = "";
+		}
 		
 		List<Item> listItems = null;
-		
-        if (busca == null || busca.isEmpty()) {
-        	listItems = itemDAO.searchAll();
-        }else {
-        	listItems = itemDAO.searchFilter(busca);
-        }
-		
+        listItems = itemDAO.searchFilter(userid, busca);
+       
 		request.setAttribute("listItems", listItems);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/feed/feed.jsp");
 		dispatcher.forward(request, response);

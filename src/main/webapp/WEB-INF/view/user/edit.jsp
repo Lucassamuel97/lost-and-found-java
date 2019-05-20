@@ -17,7 +17,17 @@
               		<h1>Dados Usuario </h1>
              	</div>
              </div>
-             <form action="usuarios/insert" method="POST">           
+             <c:if test="${message != null}">
+					<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<p>${message}</p>
+					</div>
+			</c:if>
+				
+             <form action="usuarios/update" method="POST"> 
+             	<c:if test="${user != null}">
+					<input type="hidden" name="id" value="<c:out value='${user.id}' />" />
+				</c:if>  
                 <div class="form-group">
                   <div class="form-row">
                     <div class="col-md-5">
@@ -26,8 +36,8 @@
 
                      </div>
                      <div class="col-md-7">
-                      <label for="senha">Senha: </label>
-                      <input class="form-control" id="senha" name="senha" type="text">
+                      <label for="pwd">Senha: </label>
+                      <input class="form-control" id="pwd" name="pwd" type="password">
                     </div>
                   </div>
                 </div>
