@@ -65,7 +65,10 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a class="nav-link" href="user"> <i
-						class="fa fa-user-circle" aria-hidden="true"></i> Usuário: Username
+						class="fa fa-user-circle" aria-hidden="true"></i>
+						<c:if test="${isLoggedIn}">
+							<li>${username}</li>
+						</c:if>
 				</a></li>
 				<li class="nav-item"> <a href="logout" class="nav-link"> <i
 							class="fa fa-fw fa-sign-out"></i>Sair
