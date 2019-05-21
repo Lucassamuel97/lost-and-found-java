@@ -4,7 +4,7 @@
     	driverName="com.mysql.jdbc.Driver"
         connectionURL="jdbc:mysql://localhost:3306/lost_and_found?serverTimezone=UTC"
         connectionName="root" 
-        connectionPassword=""        
+        connectionPassword="htzzx.pp/"        
         userTable="users" userNameCol="login" userCredCol="pwd"
         userRoleTable="roles" roleNameCol="role"> 
         <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA-256" />

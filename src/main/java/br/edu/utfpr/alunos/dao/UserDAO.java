@@ -66,6 +66,21 @@ public class UserDAO {
 		}
 	}
 
+	public void update(User user, int id) {
+		
+		User userE = entityManager.find(User.class, id);
+		try {
+			entityManager.getTransaction().begin();
+			userE.setEmail(user.getEmail());
+			userE.setTelefone(user.getTelefone());
+			userE.setPwd(user.getPwd());
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public void remove(User user) {
 		try {
 			entityManager.getTransaction().begin();

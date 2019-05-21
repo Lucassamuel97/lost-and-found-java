@@ -129,13 +129,15 @@ public class UsersController extends HttpServlet {
 		String telefone = request.getParameter("telefone");
 		String email = request.getParameter("email");
 		
+		User user = new User(login, pwd, telefone,"");
+		
 		//Busca usuario
-		User user = userDao.getById(id);
+		//User user = userDao.getById(id);
 		
 		//Altera os Dados do usuario
-		user.setLogin(login);
-		user.setEmail(email);
-		user.setTelefone(telefone);
+//		user.setLogin(login);
+//		user.setEmail(email);
+//		user.setTelefone(telefone);
 		if (pwd != null) {
 			final String hashed = Sha256Generator.generate(pwd);
 	        user.setPwd(hashed);
@@ -143,7 +145,7 @@ public class UsersController extends HttpServlet {
 		
 		String message = "Usuario atualizado com sucesso";;
 		try {
-			userDao.merge(user);
+			userDao.update(user, id);
 		} catch (Exception e) {
 			message = "Erro "+e.getMessage();
 		}
