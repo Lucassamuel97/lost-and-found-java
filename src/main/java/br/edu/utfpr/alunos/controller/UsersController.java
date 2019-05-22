@@ -21,10 +21,12 @@ import br.edu.utfpr.alunos.util.Constants;
 @WebServlet(urlPatterns = {"/usuarios/cadastro","/usuarios/insert","/u/usuarios/editar","/u/usuarios/update","/a/usuarios/deletar","/a/usuarios/list"})
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAO userDao;
+	private UserDAO userDAO;
+	private RoleDAO roleDAO;
 	
 	public void init() {
-		userDao = new UserDAO(); 
+		userDAO = new UserDAO(); 
+		roleDAO = new RoleDAO(); 
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -77,7 +79,7 @@ public class UsersController extends HttpServlet {
 	
 	private void listUsers(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<User> listUsers = userDao.findAll();
+		List<User> listUsers = userDAO.findAll();
 		request.setAttribute("listUsers", listUsers);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/UserList.jsp");
 		dispatcher.forward(request, response);
@@ -95,14 +97,16 @@ public class UsersController extends HttpServlet {
 			String telefone = request.getParameter("telefone");
 			String email = request.getParameter("email");
 			
-			User user = new User(login, pwd, telefone, email);
-			
-			final String hashed = Sha256Generator.generate(user.getPwd());
-	        user.setPwd(hashed);
+//			User user = new User(login, pwd, telefone, email);
+//			
+//			final String hashed = Sha256Generator.generate(user.getPwd());
+//	        user.setPwd(hashed);
 	        
-	        Role role = new Role(user.getLogin(), Constants.USER);
+			User user = new User(login, Sha256Generator.generate(pwd), telefone, email);
+			userDAO.create(user);
 			
-			userDao.persist(user, role);
+	        Role role = new Role(user.getLogin(), Constants.USER);
+			roleDAO.create(user,role);
 						
 			String address = request.getContextPath() + "/login";
             response.sendRedirect(address);
@@ -112,7 +116,7 @@ public class UsersController extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		String message = request.getParameter("message");
 		int userid = (int) request.getSession().getAttribute("userid");	
-		User resultUser  = userDao.getById(userid);
+		User resultUser  = userDAO.getById(userid);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/edit.jsp");
 		request.setAttribute("user", resultUser);
 		request.setAttribute("message", message);
@@ -129,23 +133,17 @@ public class UsersController extends HttpServlet {
 		String telefone = request.getParameter("telefone");
 		String email = request.getParameter("email");
 		
-		User user = new User(login, pwd, telefone,"");
+//		User user = new User(login, pwd, telefone,"");
+//		
+//		if (pwd != null) {
+//			final String hashed = Sha256Generator.generate(pwd);
+//	        user.setPwd(hashed);
+//		}
+		User user = new User(login, Sha256Generator.generate(pwd), telefone, email);
 		
-		//Busca usuario
-		//User user = userDao.getById(id);
-		
-		//Altera os Dados do usuario
-//		user.setLogin(login);
-//		user.setEmail(email);
-//		user.setTelefone(telefone);
-		if (pwd != null) {
-			final String hashed = Sha256Generator.generate(pwd);
-	        user.setPwd(hashed);
-		}
-		
-		String message = "Usuario atualizado com sucesso";;
+		String message = "Usuario atualizado com sucesso";
 		try {
-			userDao.update(user, id);
+			userDAO.update(user, id);
 		} catch (Exception e) {
 			message = "Erro "+e.getMessage();
 		}
@@ -161,7 +159,7 @@ public class UsersController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		User user = new User(id);
-		userDao.remove(user);
+		userDAO.delete(user);
 		response.sendRedirect("list");
 	}
 	
