@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import br.edu.utfpr.alunos.model.Role;
 import br.edu.utfpr.alunos.model.User;
@@ -39,10 +40,11 @@ public class UserDAO extends SqlBase {
 		open();
 		
 		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("SELECT * FROM users WHERE id = ?");
-			
-			stm.setInt(1, id);
-			ResultSet resultSet = stm.executeQuery();
+			String query = "SELECT * FROM users WHERE id =" + id + ";";	
+	
+			Statement statement = (Statement) conection.createStatement();
+	
+			ResultSet resultSet = statement.executeQuery(query);
 			
 			if (resultSet.next()) {
 				
@@ -68,10 +70,11 @@ public class UserDAO extends SqlBase {
 		open();
 		
 		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("SELECT * FROM users WHERE login = ?");
+			String query = "SELECT * FROM users WHERE login ='" + name + "';";	
 			
-			stm.setString(1, name);
-			ResultSet resultSet = stm.executeQuery();
+			Statement statement = (Statement) conection.createStatement();
+	
+			ResultSet resultSet = statement.executeQuery(query);
 			
 			if (resultSet.next()) {
 				
@@ -97,8 +100,11 @@ public class UserDAO extends SqlBase {
 		open();
 		
 		try {
-			PreparedStatement stm = (PreparedStatement) conection.prepareStatement("SELECT * FROM users ORDER BY login");
-			ResultSet resultSet = stm.executeQuery();
+			String query = "SELECT * FROM users ORDER BY login";	
+			
+			Statement statement = (Statement) conection.createStatement();
+	
+			ResultSet resultSet = statement.executeQuery(query);
 			
 			while (resultSet.next()) {
 				User userBean = new User(resultSet.getString(1), resultSet.getString(2),resultSet.getString(3), resultSet.getString(4));
@@ -114,30 +120,16 @@ public class UserDAO extends SqlBase {
 		return result;
 	}
 
-	@Deprecated
-	public void persist(User user, Role role) {
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(user);
-			entityManager.persist(role);
-			entityManager.getTransaction().commit();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			entityManager.getTransaction().rollback();
-		}
-	}
-
 	public User create(User user) {
 		open();
 		
 		try {
-			PreparedStatement statement = (PreparedStatement) conection.prepareStatement("INSERT INTO users (login, pwd, telefone, email) VALUES (?,?,?,?)");
-				statement.setString(1, user.getLogin());
-				statement.setString(2, user.getPwd());
-				statement.setString(3, user.getTelefone());
-				statement.setString(4, user.getEmail());
-		
-				statement.executeUpdate();
+			
+			String query = "INSERT INTO users (login, pwd, telefone, email) VALUES ('" + user.getLogin() + "','" + user.getPwd() + "','" + user.getTelefone() + "','" + user.getEmail() + "');";	
+			
+			Statement statement = (Statement) conection.createStatement();
+	
+			statement.executeUpdate(query);
 				
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -153,13 +145,12 @@ public class UserDAO extends SqlBase {
 		open();
 		
 		try {
-			PreparedStatement statement = (PreparedStatement) conection.prepareStatement("UPDATE users SET login = ?, pwd = ?, telefone = ?, email = ? WHERE id = ?");
-			statement.setString(1, user.getLogin());
-			statement.setString(2, user.getPwd());
-			statement.setString(3, user.getTelefone());
-			statement.setString(4, user.getEmail());
-			statement.setInt(5, user.getId());
-			statement.executeUpdate();
+			
+			String query = "update users set login='" + user.getLogin() + "', pwd='" + user.getPwd() + "', telefone = '" + user.getTelefone() + "', email='" + user.getEmail() + "' where id=" + id + ";";	
+			
+			Statement statement = (Statement) conection.createStatement();
+	
+			statement.executeUpdate(query);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,11 +165,11 @@ public class UserDAO extends SqlBase {
 		open();
 		
 		try {
-			PreparedStatement statement = (PreparedStatement) conection.prepareStatement("DELETE FROM users WHERE login = ?" );
+			String query = "DELETE FROM users WHERE login =" + user.getLogin() + "";	
 			
-			statement.setString(1, user.getLogin());
+			Statement statement = (Statement) conection.createStatement();
 			
-			statement.executeUpdate();
+			statement.executeUpdate(query);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
