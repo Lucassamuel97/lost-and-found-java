@@ -13,7 +13,7 @@ public class SqlBase {
 	public Connection open() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/geek_game?useSSL=false", user, password);
+			conection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/lost_and_found?useSSL=false", user, password);
 			if(conection != null)
 				return conection;
 			
