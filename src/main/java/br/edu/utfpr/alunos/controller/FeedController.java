@@ -14,7 +14,7 @@ import br.edu.utfpr.alunos.dao.ItemDAO;
 import br.edu.utfpr.alunos.model.Item;
 
 
-@WebServlet(urlPatterns = {"/a/feed","/u/feed"})
+@WebServlet(urlPatterns = {"/feed"})
 public class FeedController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemDAO itemDAO;
@@ -30,7 +30,7 @@ public class FeedController extends HttpServlet {
 	
 	private void showFeed(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
-		int userid = (int) request.getSession().getAttribute("userid");		
+		int userid = 200;		
 		String busca = request.getParameter("busca");
 		if (busca == null || busca.isEmpty()) {
         	busca = "";
