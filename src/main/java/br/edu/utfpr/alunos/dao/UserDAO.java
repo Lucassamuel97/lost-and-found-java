@@ -125,11 +125,11 @@ public class UserDAO extends SqlBase {
 		
 		try {
 			
-			String query = "INSERT INTO users (login, pwd, telefone, email) VALUES ('" + user.getLogin() + "','" + user.getPwd() + "','" + user.getTelefone() + "','" + user.getEmail() + "');";	
-			
+			String query = "INSERT INTO users SET login='" +user.getLogin()+"', pwd = '"+user.getPwd()+"', telefone='"+user.getTelefone()+"', email='"+user.getEmail()+"';";
+			System.out.println(query);
 			Statement statement = (Statement) conection.createStatement();
 	
-			statement.executeUpdate(query);
+			statement.execute(query);
 				
 		} catch (Exception e) {
 			e.printStackTrace();
